@@ -1,0 +1,5 @@
+$replace($if2(%albumartistsort%,%artist%),/,-)/
+$if($ne(%albumartist%,),$if2(%originalyear%,$left(%originaldate%,4)). $replace(%album%,:, -)/,)
+$if($gt(%totaldiscs%,1),%discnumber%-,)
+$if($ne(%albumartist%,),$num(%tracknumber%,2). ,)
+$replace(%artist% - $replace(%title%,:, -),/,-)
