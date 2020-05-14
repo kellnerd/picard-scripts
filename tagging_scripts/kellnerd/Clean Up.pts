@@ -1,12 +1,15 @@
 $delete(script)
 $delete(releasestatus)
 
-$copymerge(composer,writer)
-$copymerge(composersort,_writersort)
-$unset(writer)
-
+$setmulti(lyricistsort,%_lyricistsort%)
 $setmulti(artistsort,%_artists_sort%)
-$set(ReleaseDate,%date%)
 
+$set(releasedate,%date%)
 $set(date,$left(%originaldate%,4))
 $set(date,%originaldate%)
+
+$copymerge(composer,writer)
+$copymerge(composersort,_writersort)
+$copymerge(lyricist,writer)
+$copymerge(lyricistsort,_writersort)
+$unset(writer)
