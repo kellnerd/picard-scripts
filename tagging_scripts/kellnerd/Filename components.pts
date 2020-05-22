@@ -1,0 +1,25 @@
+$noop(## General components)
+$if(%date%,$set(_Year,
+	$if2(%originalyear%,$left(%originaldate%,4))
+. ))
+$if(%_SeriesEpisode%,$set(_Volume,
+	$num(%_SeriesEpisode%,3)
+. ))
+
+$noop(## Standard components)
+$set(_ArtistFolder,$replace(%albumartistsort%,/,-))
+$set(_AlbumFolder,
+	%_Year%
+	$replace(%album%,/,-)
+)
+$set(_TrackTitle,$replace(%title%,/,-))
+
+$noop(## Special components for release series)
+$if(%_SeriesTitle%,
+	$set(_SeriesFolder,$replace(%_SeriesTitle%,/,-))
+	$set(_EpisodeFolder,
+		%_Year%
+		%_Volume%
+		$replace(%_SeriesEpisodeTitle%,/,-)
+	)
+)

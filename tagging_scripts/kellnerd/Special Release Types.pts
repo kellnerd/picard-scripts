@@ -1,0 +1,12 @@
+$noop(## Audiobooks)
+$if($inmulti(%releasetype%,audiobook),
+	$set(_SpecialReleaseType,Audiobook)
+)
+
+$noop(## Audio dramas)
+$if($inmulti(%releasetype%,audio drama),
+	$set(_SpecialReleaseType,Audio Drama)
+	$set(_SeriesTitle,$rsearch(%album%,\(.+?\)\( \\d+\)?:))
+	$set(_SeriesEpisode,$rsearch(%album%,\(\\d+\):))
+	$set(_SeriesEpisodeTitle,$rsearch(%album%,.+?: \(.+\)))
+)

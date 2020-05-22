@@ -1,0 +1,48 @@
+$noop(## Delete unwanted tags)
+$delete(script)
+$delete(asin)
+
+$noop(## Delete multi-value tags if they are identical to their string counterparts: Kodi looks for *ARTISTS first and falls back to *ARTIST)
+$if($lt($lenmulti(%artists%),2),
+	$delete(artists)
+, $noop(... else: Prefer multi-value sort names)
+	$setmulti(artistsort,%_artists_sort%)
+)
+$if($lt($lenmulti(%_albumartists%),2),
+	$delete(albumartists)
+,
+	$setmulti(albumartists,%_albumartists%) $noop(Tag is missing by default)
+	$setmulti(albumartistsort,%_albumartists_sort%)
+)
+
+$noop(## Use original date as primary date, backup date of the specific release)
+$set(releasedate,%date%)
+$noop($set(date,$left(%originaldate%,4)))
+$set(date,%originaldate%)
+
+$noop(## Use lyricist and composer instead of writer)
+$setmulti(lyricistsort,%_lyricistsort%) $noop(Tag is missing by default)
+$copymerge(lyricist,writer)
+$copymerge(lyricistsort,_writersort)
+$if($not(%_SpecialReleaseType%),
+	$copymerge(composer,writer)
+	$copymerge(composersort,_writersort)
+)
+$unset(writer)
+
+$noop(## Instrumental recordings)
+$if($inmulti(%_performance_attributes%,instrumental),
+	$unset(lyricist)
+	$unset(lyricistsort)
+	$if($not($in(%title%,instrumental)),
+		$set(title,%title% [instrumental])
+	)
+)
+
+$noop(## Live recordings)
+$if($inmulti(%_performance_attributes%,live),
+	$copymerge(comment,_recordingcomment)
+	$if($not($in(%title%,live)),
+		$set(title,%title% [live])
+	)
+)
