@@ -1,25 +1,44 @@
-$noop(## General components)
-$if(%date%,$set(_Year,
-	$if2(%originalyear%,$left(%originaldate%,4))
-. ))
-$if(%_SeriesEpisode%,$set(_Volume,
-	$num(%_SeriesEpisode%,3)
-. ))
+$noop( Compose version info string for the album )
+$if($gt($sub(%_releaseyear%,%originalyear%),0),
+	$set(_Reissue,%_releaseyear%)
+)
+$if($or(%_MultiDisc%,$ne_all(%media%,CD,Digital Media)),
+	$set(_ReleaseFormat,$if(%_MultiDisc%,%totaldiscs%x)%media%)
+)
+$set(_AlbumInfo,$strip(%_Reissue% %_ReleaseFormat%))
 
-$noop(## Standard components)
-$set(_ArtistFolder,$replace(%albumartistsort%,/,-))
+$noop( General snippets )
+$if(%date%,
+	$set(_Year,%originalyear%. )
+)
+$if(%_SeriesEpisode%,
+	$set(_Volume,$num(%_SeriesEpisode%,3). )
+)
+$if(%_AdditionalReleaseTypes%,
+	$set(_AdditionalReleaseTypes, [$join(%_AdditionalReleaseTypes%,+)])
+)
+$if(%_AlbumInfo%,
+	$set(_AlbumInfo, [%_AlbumInfo%])
+)
+
+$noop( Standard path components )
+$set(_ArtistFolder,$replace($replace(%albumartistsort%,/,-),; , & ))
 $set(_AlbumFolder,
 	%_Year%
 	$replace(%album%,/,-)
+	%_AdditionalReleaseTypes%
+	%_AlbumInfo%
 )
 $set(_TrackTitle,$replace(%title%,/,-))
 
-$noop(## Special components for release series)
+$noop( Special path components for release that are part of a series )
 $if(%_SeriesTitle%,
 	$set(_SeriesFolder,$replace(%_SeriesTitle%,/,-))
 	$set(_EpisodeFolder,
 		%_Year%
 		%_Volume%
 		$replace(%_SeriesEpisodeTitle%,/,-)
+		%_AdditionalReleaseTypes%
+		%_AlbumInfo%
 	)
 )

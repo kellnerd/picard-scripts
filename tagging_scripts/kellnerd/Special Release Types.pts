@@ -1,12 +1,25 @@
-$noop(## Audiobooks)
-$if($inmulti(%releasetype%,audiobook),
+$noop( Capitalize release types, use uppercase for EP )
+$setmulti(releasetype,$map(%releasetype%,$if($eq(%_loop_value%,ep),$upper(%_loop_value%),$title(%_loop_value%))))
+
+$noop( Soundtracks )
+$if($inmulti(%releasetype%,Soundtrack),
+	$set(_SpecialReleaseType,Soundtrack)
+)
+
+$noop( Audiobooks )
+$if($inmulti(%releasetype%,Audiobook),
 	$set(_SpecialReleaseType,Audiobook)
 )
 
-$noop(## Audio dramas)
-$if($inmulti(%releasetype%,audio drama),
+$noop( Audio dramas )
+$if($inmulti(%releasetype%,Audio Drama),
 	$set(_SpecialReleaseType,Audio Drama)
 	$set(_SeriesTitle,$rsearch(%album%,\(.+?\)\( \\d+\)?:))
 	$set(_SeriesEpisode,$rsearch(%album%,\(\\d+\):))
 	$set(_SeriesEpisodeTitle,$rsearch(%album%,.+?: \(.+\)))
 )
+
+$noop( Additional release types which have no special handling )
+$foreach(%releasetype%,$if($ne_all(%_loop_value%,Other,Album,%_SpecialReleaseType%),
+	$copymerge(_AdditionalReleaseTypes,_loop_value)
+))

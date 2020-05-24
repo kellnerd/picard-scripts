@@ -1,33 +1,52 @@
-$noop(## Generate path from custom variables, fall back to standard tags)
+$noop( Combine interesting file properties to a file info string )
+$if($ne_any(%_extension%,mp3),
+	$set(_FileFormat,$upper(%_extension%))
+)
+$if($gt(%_bits_per_sample%,16),
+	$set(_HighPrecision,%_bits_per_sample%bit)
+)
+$if($gt(%_sample_rate%,44100),
+	$set(_HighResolution,$div(%_sample_rate%,1000)kHz)
+)
+$set(_FileInfo,$strip(%_FileFormat% %_HighPrecision% %_HighResolution%))
+$if(%_FileInfo%,
+	$set(_FileInfo, [%_FileInfo%])
+)
+
+$noop( Generate path from custom variables, fall back to standard tags )
 $set(_path,
-	$noop(## Root directory and artist/series folder)
+	$noop( Root directory and artist/series folder )
 	$if2(%_SpecialReleaseType%,Music)
 	/
 	$if2(%_SeriesFolder%,%_ArtistFolder%,%albumartist%,%artist%)
 	/
-	$noop(## Album/Episode folder, except for standalone recordings)
+	$noop( Release folder, except for standalone recordings )
 	$if(%albumartist%,
-		$if2(%_EpisodeFolder%,%_AlbumFolder%,%album%)
+		$if2(%_EpisodeFolder%,%_AlbumFolder%,%album%)%_FileInfo%
 	/)
-	$noop(## Disc and track number, if available, except for standalone recordings)
+	$noop( Disc and track number, if available, except for standalone recordings )
 	$if($and(%tracknumber%,%albumartist%),
-		$if($gt(%totaldiscs%,1),
+		$if(%_MultiDisc%,
 			$if2(%_PaddedDiscNum%,%discnumber%)
 		-)
-		$if2(%_PaddedTrackNum%,%tracknumber%)
+		$if($eq($num(%_musicbrainz_tracknumber%,0),0),$noop( e.g. $num(A1,0) => "0" )
+			$if2(%_musicbrainz_tracknumber%,%_PaddedTrackNum%,%tracknumber%)
+		,$noop( Track number is not alpha-numerical, prefer padded consecutive numbers )
+			$if2(%_PaddedTrackNum%,%tracknumber%)
+		)
 	. )
-	$noop(## Artist credits, except for special releases)
-	$if($not(%_SpecialReleaseType%),
+	$noop( Artist credits for multi-artist releases and all standard releases )
+	$if($or(%_multiartist%,$not(%_SpecialReleaseType%)),
 		$if2(%_TrackArtist%,%artist%)
 	 - )
-	$noop(## Track/Recording title)
+	$noop( Track/Recording title )
 	$if2(%_TrackTitle%,%title%)
 )
 
-$noop(## Additional custom replacements, e.g. to prevent replacement of illegal characters with an underscore)
+$noop( Additional custom replacements, e.g. to prevent replacement of illegal characters with an underscore )
 $set(_path,$replace(%_path%,: , - ))
 $set(_path,$replace(%_path%,???,Fragezeichen))
 $set(_path,$replace(%_path%,?,))
 
-$noop(## Output the constructed path, remove line breaks and indentation caused by script formatting)
-$rreplace(%_path%,[\\t\\n],)
+$noop( Output the constructed path, remove line breaks and indentation caused by script formatting )
+$rreplace(%_path%,[\\t\\n]+,)
