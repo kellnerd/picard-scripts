@@ -1,4 +1,4 @@
-$noop( Combine interesting file properties to a file info string )
+$noop( File properties )
 $if($ne_any(%_extension%,mp3),
 	$set(_FileFormat,$upper(%_extension%))
 )

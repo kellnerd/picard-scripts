@@ -56,6 +56,7 @@ $noop( Lyrics are not part of an instrumental recording )
 $if($inmulti(%_performance_attributes%,instrumental),
 	$delete(lyricist)
 	$delete(lyricistsort)
+	$set(language,zxx)
 )
 
 $noop( Frequently used constants )
