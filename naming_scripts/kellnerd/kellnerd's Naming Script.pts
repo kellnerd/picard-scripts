@@ -8,7 +8,7 @@ $if($gt(%_bits_per_sample%,16),
 $if($gt(%_sample_rate%,44100),
 	$set(_HighResolution,$div(%_sample_rate%,1000)kHz)
 )
-$set(_FileInfo,$strip(%_FileFormat% %_HighPrecision% %_HighResolution%))
+$set(_FileInfo,$strip(%_FileFormat% $releasetag_avg(_bitrate,0)kbps %_HighPrecision% %_HighResolution%))
 $if(%_FileInfo%,
 	$set(_FileInfo, [%_FileInfo%])
 )
