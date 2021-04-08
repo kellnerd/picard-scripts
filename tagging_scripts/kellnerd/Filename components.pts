@@ -22,7 +22,7 @@ $if(%_AlbumInfo%,
 )
 
 $noop( Standard path components )
-$set(_ArtistFolder,$replace($replace(%albumartistsort%,/,-),; , & ))
+$set(_ArtistFolder,$replace($replace(%albumartistsort%,/,-),; , & )) $noop( TODO: use $join(%albumartistsort%, & ) instead )
 $set(_AlbumFolder,
 	%_Year%
 	$replace(%album%,/,-)

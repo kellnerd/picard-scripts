@@ -21,18 +21,20 @@ $set(releasedate,%date%)
 $set(_releaseyear,$left(%releasedate%,4))
 $set(date,%originaldate%)
 
-$noop( Use lyricist and composer tag instead of writer )
-$setmulti(lyricistsort,%_lyricistsort%) $noop( Tag is missing by default )
+$noop( Use additional sort names that are provided by my plugin )
+$setmulti(lyricistsort,%_lyricistsort%)
+$setmulti(writersort,%_writersort%)
+$noop( TODO: REMOVE. Use lyricist and composer tag instead of writer )
 $copymerge(lyricist,writer)
 $copymerge(lyricistsort,_writersort)
-$if($not(%_SpecialReleaseType%),
+$if($not(%_SpecialReleaseType%),$noop( TODO non-sense for soundtracks)
 	$copymerge(composer,writer)
 	$copymerge(composersort,_writersort)
 )
 $unset(writer)
 
-$noop( Use all existing disambiguation comments )
-$foreach(_releasegroupcomment; _releasecomment; _recordingcomment,
+$noop( Use all available disambiguation comments, the most specific first )
+$foreach(_recordingcomment; _releasecomment; _releasegroupcomment,
 	$copymerge(comment,%_loop_value%)
 )
 
@@ -52,7 +54,8 @@ $if(%_PerformanceETI%,
 	$set(title,%title% [$join(%_PerformanceETI%, )])
 )
 
-$noop( Lyrics are not part of an instrumental recording )
+$noop( Lyrics are not part of an instrumental recording.
+TODO: Solved in Picard 2.4? )
 $if($inmulti(%_performance_attributes%,instrumental),
 	$delete(lyricist)
 	$delete(lyricistsort)
