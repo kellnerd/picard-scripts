@@ -5,7 +5,7 @@ $if($gt($sub(%_releaseyear%,%originalyear%),0),
 $if($or(%_MultiDisc%,$ne_all(%media%,CD,Digital Media)),
 	$set(_ReleaseFormat,$if(%_MultiDisc%,%totaldiscs%x)%media%)
 )
-$set(_AlbumInfo,$strip(%_Reissue% %_ReleaseFormat%))
+$setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
 
 $noop( General snippets )
 $if(%date%,
@@ -18,7 +18,7 @@ $if(%_AdditionalReleaseTypes%,
 	$set(_AdditionalReleaseTypes, [$join(%_AdditionalReleaseTypes%,+)])
 )
 $if(%_AlbumInfo%,
-	$set(_AlbumInfo, [%_AlbumInfo%])
+	$set(_AlbumInfo, [$join(%_AlbumInfo%, )])
 )
 
 $noop( Standard path components )

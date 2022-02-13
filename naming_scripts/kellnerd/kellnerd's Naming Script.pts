@@ -8,9 +8,9 @@ $if($gt(%_bits_per_sample%,16),
 $if($gt(%_sample_rate%,44100),
 	$set(_HighResolution,$div(%_sample_rate%,1000)kHz)
 )
-$set(_FileInfo,$strip(%_FileFormat% $album_avg(_bitrate,0)kbps %_HighPrecision% %_HighResolution%))
+$setmulti(_FileInfo,%_FileFormat%; $album_avg(_bitrate,0)kbps; %_HighPrecision%; %_HighResolution%)
 $if(%_FileInfo%,
-	$set(_FileInfo, [%_FileInfo%])
+	$set(_FileInfo, [$join(%_FileInfo%, )])
 )
 
 $noop( Generate path from custom variables, fall back to standard tags )
