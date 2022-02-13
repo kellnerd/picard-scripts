@@ -21,7 +21,6 @@ $if($inmulti(%releasetype%,Audio Drama),
 )
 
 $noop( Additional release types which have no special handling & Release status )
-$noop( TODO: https://tickets.metabrainz.org/browse/PICARD-1813 & Remove temporary fix using space & strip )
-$foreach(%releasetype%; $strip($title(%releasestatus% )),$if($ne_all(%_loop_value%,Other,Album,%_SpecialReleaseType%,Official),
+$foreach(%releasetype%; $title(%releasestatus%), $if($ne_all(%_loop_value%,Other,Album,%_SpecialReleaseType%,Official),
 	$copymerge(_AdditionalReleaseTypes,_loop_value)
 ))
