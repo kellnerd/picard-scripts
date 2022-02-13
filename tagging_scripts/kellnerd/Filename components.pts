@@ -22,7 +22,7 @@ $if(%_AlbumInfo%,
 )
 
 $noop( Standard path components )
-$set(_ArtistFolder,$replace($replace(%albumartistsort%,/,-),; , & )) $noop( TODO: use $join(%albumartistsort%, & ) instead )
+$set(_ArtistFolder,$join($replace(%albumartistsort%,/,-), & ))
 $set(_AlbumFolder,
 	%_Year%
 	$replace(%album%,/,-)
@@ -31,7 +31,7 @@ $set(_AlbumFolder,
 )
 $set(_TrackTitle,$replace(%title%,/,-))
 
-$noop( Special path components for release that are part of a series )
+$noop( Special path components for releases that are part of a series )
 $if(%_SeriesTitle%,
 	$set(_SeriesFolder,$replace(%_SeriesTitle%,/,-))
 	$set(_EpisodeFolder,
