@@ -12,7 +12,7 @@ $if(%date%,
 	$set(_Year,%originalyear%. )
 )
 $if(%_SeriesEpisode%,
-	$set(_Volume,$num(%_SeriesEpisode%,3). )
+	$set(_Volume,\(%_SeriesEpisode%\) )
 )
 $if(%_AdditionalReleaseTypes%,
 	$set(_AdditionalReleaseTypes, [$join(%_AdditionalReleaseTypes%,+)])
