@@ -1,3 +1,6 @@
+$noop( Clear all temporary variables to which values will be appended, otherwise they have duplicates on refresh )
+$unset(_PerformanceETI)
+
 $noop( Delete unwanted tags )
 $foreach(script; asin,
 	$delete(%_loop_value%)
