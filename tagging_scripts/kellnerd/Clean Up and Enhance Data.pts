@@ -38,9 +38,9 @@ $set(title,$rreplace(%title%,\\\(\(?=[^\(\)]*\(?:edit|mix|version|take|live|inst
 
 $noop( Use performance attributes, add attributes that are not already part of the title as ETI )
 $if(%_performance_attributes%,
-	$setmulti(performance_attributes,%_performance_attributes%)
+	$setmulti(performance_attributes,$title(%_performance_attributes%))
 	$foreach(instrumental; live; cover,
-		$if($and($inmulti(%performance_attributes%,%_loop_value%),$not($in(%title%,%_loop_value%))),
+		$if($and($inmulti(%_performance_attributes%,%_loop_value%),$not($in(%title%,%_loop_value%))),
 			$copymerge(_PerformanceETI,_loop_value)
 		)
 	)
