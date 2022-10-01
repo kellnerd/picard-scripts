@@ -24,6 +24,6 @@ $if($inmulti(%releasetype%,Audio Drama),
 )
 
 $noop( Additional release types which have no special handling & Release status )
-$foreach(%releasetype%; $title(%releasestatus%), $if($ne_all(%_loop_value%,Other,Album,%_SpecialReleaseType%,Official),
+$foreach(%releasetype%; %releasestatus%, $if($ne_all(%_loop_value%,Other,Album,%_SpecialReleaseType%,Official),
 	$copymerge(_AdditionalReleaseTypes,_loop_value)
 ))
