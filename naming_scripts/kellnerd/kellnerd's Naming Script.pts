@@ -35,12 +35,12 @@ $set(_path,
 			$if2(%_PaddedTrackNum%,%tracknumber%)
 		)
 	. )
-	$noop( Artist credits for multi-artist releases and all standard releases )
-	$if($or(%_multiartist%,$not(%_SpecialReleaseType%)),
-		$if2(%_TrackArtist%,%artist%)
-	 - )
 	$noop( Track/Recording title )
 	$if2(%_TrackTitle%,%title%)
+	$noop( Track artist credits if different from the release's artist credit )
+	$if($ne(%artist%,%albumartist%), -- 
+		$if2(%_TrackArtist%,%artist%)
+	)
 )
 
 $noop( Additional custom replacements, e.g. to prevent replacement of illegal characters with an underscore )
