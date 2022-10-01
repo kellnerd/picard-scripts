@@ -28,7 +28,7 @@ $set(_path,
 	$if($and(%tracknumber%,%albumartist%),
 		$if(%_MultiDisc%,
 			$if2(%_PaddedDiscNum%,%discnumber%)
-		-)
+		.)
 		$if($eq($num(%_musicbrainz_tracknumber%,0),0),$noop( e.g. $num(A1,0) => "0" )
 			$if2(%_musicbrainz_tracknumber%,%_PaddedTrackNum%,%tracknumber%)
 		,$noop( Track number is not alpha-numerical, prefer padded consecutive numbers )
