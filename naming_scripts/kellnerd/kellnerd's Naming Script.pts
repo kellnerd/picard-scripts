@@ -2,6 +2,9 @@ $noop( File properties )
 $if($ne_any(%_extension%,mp3),
 	$set(_FileFormat,$upper(%_extension%))
 )
+$if($is_lossy(),
+	$set(_LossyBitrate,$album_avg(_bitrate,0)kbps)
+)
 $if($gt(%_bits_per_sample%,16),
 	$set(_HighPrecision,%_bits_per_sample%bit)
 )
@@ -9,7 +12,7 @@ $if($gt(%_sample_rate%,44100),
 	$set(_HighResolution,$div(%_sample_rate%,1000)kHz)
 )
 $noop( TODO: revert to hidden variable, see https://tickets.metabrainz.org/browse/PICARD-2568 )
-$setmulti(FileInfo,%_FileFormat%; $album_avg(_bitrate,0)kbps; %_HighPrecision%; %_HighResolution%)
+$setmulti(FileInfo,%_FileFormat%; %_LossyBitrate%; %_HighPrecision%; %_HighResolution%)
 $cleanmulti(FileInfo)
 $if(%FileInfo%,
 	$set(FileInfo, [$join(%FileInfo%, )])
