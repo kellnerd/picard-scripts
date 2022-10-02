@@ -52,6 +52,7 @@ $noop( Additional custom replacements, e.g. to prevent replacement of illegal ch
 $set(_path,$replace(%_path%,: , - ))
 $set(_path,$replace(%_path%,???,Fragezeichen))
 $set(_path,$replace(%_path%,?,))
+$set(_path,$replace(%_path%,",))
 
 $noop( Output the constructed path, remove line breaks and indentation caused by script formatting )
 $rreplace(%_path%,[\\t\\n]+,)
