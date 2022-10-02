@@ -6,6 +6,7 @@ $if($or(%_MultiDisc%,$ne_all(%media%,CD,Digital Media)),
 	$set(_ReleaseFormat,$if(%_MultiDisc%,%totaldiscs%x)%media%)
 )
 $setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
+$cleanmulti(_AlbumInfo)
 
 $noop( General snippets )
 $if(%date%,

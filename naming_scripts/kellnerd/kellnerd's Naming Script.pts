@@ -9,6 +9,7 @@ $if($gt(%_sample_rate%,44100),
 	$set(_HighResolution,$div(%_sample_rate%,1000)kHz)
 )
 $setmulti(_FileInfo,%_FileFormat%; $album_avg(_bitrate,0)kbps; %_HighPrecision%; %_HighResolution%)
+$cleanmulti(_FileInfo)
 $if(%_FileInfo%,
 	$set(_FileInfo, [$join(%_FileInfo%, )])
 )
