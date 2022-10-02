@@ -5,8 +5,11 @@ $if($gt($sub(%_releaseyear%,%originalyear%),0),
 $if($or(%_MultiDisc%,$ne_all(%media%,CD,Digital Media)),
 	$set(_ReleaseFormat,$if(%_MultiDisc%,%totaldiscs%x)%media%)
 )
-$setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
-$cleanmulti(_AlbumInfo)
+$noop( TODO: revert to hidden variable only, see https://tickets.metabrainz.org/browse/PICARD-2568 )
+$setmulti(AlbumInfo,%_Reissue%; %_ReleaseFormat%)
+$cleanmulti(AlbumInfo)
+$setmulti(_AlbumInfo,%AlbumInfo%)
+$unset(AlbumInfo)
 
 $noop( General snippets )
 $if(%date%,
