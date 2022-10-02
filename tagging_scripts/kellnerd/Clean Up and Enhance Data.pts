@@ -49,13 +49,5 @@ $if(%_PerformanceETI%,
 	$set(title,%title% [$join(%_PerformanceETI%, )])
 )
 
-$noop( Lyrics are not part of an instrumental recording.
-TODO: Solved in Picard 2.4? )
-$if($inmulti(%_performance_attributes%,instrumental),
-	$delete(lyricist)
-	$delete(lyricistsort)
-	$set(language,zxx)
-)
-
 $noop( Frequently used constants )
 $set(_MultiDisc,$gt(%totaldiscs%,1))
