@@ -1,5 +1,5 @@
 $noop( File properties )
-$if($ne_any(%_extension%,mp3),
+$if($ne_all(%_extension%,mp3,flac),
 	$set(_FileFormat,$upper(%_extension%))
 )
 $if($is_lossy(),
