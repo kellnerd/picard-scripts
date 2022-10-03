@@ -1,9 +1,9 @@
 $noop( Clear all temporary variables to which values will be appended, otherwise they have duplicates on refresh )
 $unset(_AdditionalReleaseTypes)
 
-$noop( Capitalize release status and types, use uppercase for EP )
+$noop( Capitalize release status and types, use uppercase for EP, drop Other )
 $set(releasestatus,$title(%releasestatus%))
-$setmulti(releasetype,$map(%releasetype%,$if($eq(%_loop_value%,ep),$upper(%_loop_value%),$title(%_loop_value%))))
+$setmulti(releasetype,$map(%releasetype%,$if($eq(%_loop_value%,ep),$upper(%_loop_value%),$if($ne(%_loop_value%,other),$title(%_loop_value%)))))
 
 $noop( Soundtracks )
 $if($inmulti(%releasetype%,Soundtrack),
@@ -24,6 +24,6 @@ $if($inmulti(%releasetype%,Audio Drama),
 )
 
 $noop( Additional release types which have no special handling & Release status )
-$foreach(%releasetype%; %releasestatus%, $if($ne_all(%_loop_value%,Other,Album,%_SpecialReleaseType%,Official),
+$foreach(%releasetype%; %releasestatus%, $if($ne_all(%_loop_value%,Album,%_SpecialReleaseType%,Official),
 	$copymerge(_AdditionalReleaseTypes,_loop_value)
 ))
