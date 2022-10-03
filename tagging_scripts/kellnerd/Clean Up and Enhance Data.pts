@@ -49,5 +49,8 @@ $if(%_PerformanceETI%,
 	$set(title,%title% [$join(%_PerformanceETI%, )])
 )
 
+$noop( Use country names instead of two letter codes )
+$set(releasecountry,$countryname(%releasecountry%))
+
 $noop( Frequently used constants )
 $set(_MultiDisc,$gt(%totaldiscs%,1))
