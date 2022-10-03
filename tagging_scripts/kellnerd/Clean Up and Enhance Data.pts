@@ -29,9 +29,7 @@ $setmulti(lyricistsort,%_lyricistsort%)
 $setmulti(writersort,%_writersort%)
 
 $noop( Use all available disambiguation comments, the most specific first )
-$foreach(_recordingcomment; _releasecomment; _releasegroupcomment,
-	$copymerge(comment,%_loop_value%)
-)
+$set(comment,$join($unique(%_recordingcomment%; %_releasecomment%; %_releasegroupcomment%),\n))
 
 $noop( Use square brackets instead of rounded brackets for ETI )
 $set(title,$rreplace(%title%,\\\(\(?=[^\(\)]*\(?:edit|mix|version|take|live|instrumental|dialogue|interview|bonus\)\)\([^\(\)]+\)\\\),[\\1]))
