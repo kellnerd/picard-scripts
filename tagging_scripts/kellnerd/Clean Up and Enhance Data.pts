@@ -21,7 +21,7 @@ $if($lt($lenmulti(%_albumartists%),2),
 
 $noop( Use original date as primary date, backup date of the specific release )
 $set(releasedate,%date%)
-$set(_releaseyear,$left(%releasedate%,4))
+$set(_releaseyear,$year(%releasedate%))
 $set(date,%originaldate%)
 
 $noop( Use additional sort names that are provided by my plugin )
