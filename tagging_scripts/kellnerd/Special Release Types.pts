@@ -14,8 +14,8 @@ $if($inmulti(%releasetype%,Audiobook),
 $noop( Audio dramas )
 $if($inmulti(%releasetype%,Audio Drama),
 	$set(_SpecialReleaseType,Audio Drama)
-	$set(_SeriesTitle,$rsearch(%album%,\(.+?\)\( \\d+\)?:))
-	$set(_SeriesEpisode,$rsearch(%album%,\(\\d+\):))
+	$set(_SeriesTitle,$if2(%series%,$rsearch(%album%,\(.+?\)\( \\d+\)?:)))
+	$set(_SeriesEpisode,$if2(%seriesnumber%,$rsearch(%album%,\(\\d+\):)))
 	$set(_SeriesEpisodeTitle,$rsearch(%album%,.+?: \(.+\)))
 )
 
