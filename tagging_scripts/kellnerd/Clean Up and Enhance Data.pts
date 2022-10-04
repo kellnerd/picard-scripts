@@ -24,6 +24,10 @@ $set(releasedate,%date%)
 $set(_releaseyear,$year(%releasedate%))
 $set(date,%originaldate%)
 
+$noop( Capitalize release status and types, use uppercase for EP, drop Other )
+$set(releasestatus,$title(%releasestatus%))
+$setmulti(releasetype,$map(%releasetype%,$if($eq(%_loop_value%,ep),$upper(%_loop_value%),$if($ne(%_loop_value%,other),$title(%_loop_value%)))))
+
 $noop( Use additional sort names that are provided by my plugin )
 $setmulti(lyricistsort,%_lyricistsort%)
 $setmulti(writersort,%_writersort%)

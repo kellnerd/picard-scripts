@@ -1,0 +1,5 @@
+$noop( Use series tags for audio dramas and compilations only )
+$if($or($inmulti(%releasetype%,Audio Drama),$inmulti(%releasetype%,Compilation)),
+	$setmulti(series,%_releasegroup_series%)
+	$setmulti(seriesnumber,%_releasegroup_seriesnumber%)
+)
