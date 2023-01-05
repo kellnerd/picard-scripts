@@ -30,7 +30,7 @@ $set(_path,
 	/)
 	$noop( Disc and track number, if available, except for standalone recordings )
 	$if($and(%tracknumber%,%albumartist%),
-		$if(%_MultiDisc%,
+		$if($gt(%totaldiscs%,1),
 			$if2(%_PaddedDiscNum%,%discnumber%)
 		.)
 		$if($eq($num(%_musicbrainz_tracknumber%,0),0),$noop( e.g. $num(A1,0) => "0" )
