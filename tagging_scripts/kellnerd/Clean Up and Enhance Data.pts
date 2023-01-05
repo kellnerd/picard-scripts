@@ -18,7 +18,6 @@ $if($lt($lenmulti(%_albumartists%),2),
 
 $noop( Use original date as primary date, backup date of the specific release )
 $set(releasedate,%date%)
-$set(_releaseyear,$year(%releasedate%))
 $set(date,%originaldate%)
 
 $noop( Capitalize release status and types, use uppercase for EP, drop Other )
@@ -50,6 +49,3 @@ $if(%_PerformanceETI%,
 
 $noop( Use country names instead of two letter codes )
 $set(releasecountry,$countryname(%releasecountry%))
-
-$noop( Frequently used constants )
-$set(_MultiDisc,$gt(%totaldiscs%,1))
