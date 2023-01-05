@@ -16,9 +16,9 @@ $if($lt($lenmulti(%_albumartists%),2),
 	$setmulti(albumartistsort,%_albumartists_sort%)
 )
 
-$noop( Use original date as primary date, backup date of the specific release )
+$noop( Use earliest release year of the recording as primary date, backup date of the specific release )
 $set(releasedate,%date%)
-$set(date,%originaldate%)
+$set(date,$year($if2(%_recording_firstreleasedate%,%originaldate%)))
 
 $noop( Capitalize release status and types, use uppercase for EP, drop Other )
 $set(releasestatus,$title(%releasestatus%))

@@ -13,9 +13,7 @@ $setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
 $cleanmulti(_AlbumInfo)
 
 $noop( General snippets )
-$if(%date%,
-	$set(_Year,%originalyear%. )
-)
+$set(_Year,$if2(%originalyear%,%_ReleaseYear%). )
 $if(%_SeriesEpisode%,
 	$set(_Volume,\(%_SeriesEpisode%\) )
 )
