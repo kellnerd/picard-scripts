@@ -11,11 +11,10 @@ $if($gt(%_bits_per_sample%,16),
 $if($gt(%_sample_rate%,44100),
 	$set(_HighResolution,$div(%_sample_rate%,1000)kHz)
 )
-$noop( TODO: revert to hidden variable, see https://tickets.metabrainz.org/browse/PICARD-2568 )
-$setmulti(FileInfo,%_FileFormat%; %_LossyBitrate%; %_HighPrecision%; %_HighResolution%)
-$cleanmulti(FileInfo)
-$if(%FileInfo%,
-	$set(FileInfo, [$join(%FileInfo%, )])
+$setmulti(_FileInfo,%_FileFormat%; %_LossyBitrate%; %_HighPrecision%; %_HighResolution%)
+$cleanmulti(_FileInfo)
+$if(%_FileInfo%,
+	$set(_FileInfo, [$join(%_FileInfo%, )])
 )
 
 $noop( Generate path from custom variables, fall back to standard tags )
@@ -27,7 +26,7 @@ $set(_path,
 	/
 	$noop( Release folder, except for standalone recordings )
 	$if(%albumartist%,
-		$if2(%_EpisodeFolder%,%_AlbumFolder%,%album%)%FileInfo%
+		$if2(%_EpisodeFolder%,%_AlbumFolder%,%album%)%_FileInfo%
 	/)
 	$noop( Disc and track number, if available, except for standalone recordings )
 	$if($and(%tracknumber%,%albumartist%),
