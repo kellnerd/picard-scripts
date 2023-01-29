@@ -54,9 +54,9 @@ $noop( Additional path replacements, e.g. to prevent replacement of illegal char
 $set(_SearchReplaceSeparator,=>)
 $if($not(%_PathReplacements%),$setmulti(_PathReplacements,
 $noop( Default regex rules, format: "search=>replace;")
-: => - ;
-\\?=>;
-"=>;
+[:\\?] => - ;
+\\?\$=>;
+"\(.+?\)"=>'\\1';
 ,;))
 
 $noop( Loop over all valid path replacement rules )
