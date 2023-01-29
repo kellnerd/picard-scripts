@@ -1,3 +1,5 @@
+$noop( Requires: "Release Series" plugin & "Capitalize Release Status and Types" script )
+
 $noop( Use series tags for audio dramas and compilations only )
 $if($or($inmulti(%releasetype%,Audio Drama),$inmulti(%releasetype%,Compilation)),
 	$copy(series,_releasegroup_series)

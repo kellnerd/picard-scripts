@@ -1,0 +1,8 @@
+title: Recording and Release Date
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $noop( Use earliest release year of the recording as primary date, backup date of the specific release )
+  $set(releasedate,%date%)
+  $set(date,$year($if2(%_recording_firstreleasedate%,%originaldate%)))
+id: ae72601c-fbfd-45b3-800f-e4ea10ded0e0

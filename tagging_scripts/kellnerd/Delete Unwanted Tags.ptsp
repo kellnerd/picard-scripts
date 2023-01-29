@@ -1,0 +1,8 @@
+title: Delete Unwanted Tags
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $noop( Delete unwanted tags )
+  $setmulti(_unwanted_tag,script; asin)
+  $foreach(%_unwanted_tag%,$delete(%_loop_value%))
+id: 92637987-fb8a-4753-8c4d-07387c061716

@@ -1,3 +1,5 @@
+$noop( Requires: "Special Release Types" )
+
 $noop( Frequently used constants )
 $set(_MultiDisc,$gt(%totaldiscs%,1))
 $set(_ReleaseYear,$year($if2(%releasedate%,%date%)))

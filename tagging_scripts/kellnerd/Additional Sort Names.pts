@@ -1,3 +1,0 @@
-$noop( Use additional sort names that are provided by the plugin with the same name )
-$copy(lyricistsort,_lyricistsort)
-$copy(writersort,_writersort)
