@@ -3,7 +3,7 @@ $set(_MultiDisc,$gt(%totaldiscs%,1))
 $set(_ReleaseYear,$year($if2(%releasedate%,%date%)))
 
 $noop( Compose version info string for the album )
-$if($gt($sub(%_ReleaseYear%,%originalyear%),0),
+$if($gt(%_ReleaseYear%,%originalyear%),
 	$set(_Reissue,%_ReleaseYear%)
 )
 $if($or(%_MultiDisc%,$ne_all(%media%,CD,Digital Media)),
