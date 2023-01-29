@@ -21,7 +21,7 @@ $if(%_FileInfo%,
 )
 
 $noop( Generate path from custom variables, fall back to standard tags )
-$set(_path,
+$set(_Path,
 	$noop( Root directory and artist/series folder )
 	$if2(%_SpecialReleaseType%,Music)
 	/
@@ -50,11 +50,21 @@ $set(_path,
 	)
 )
 
-$noop( Additional custom replacements, e.g. to prevent replacement of illegal characters with an underscore )
-$set(_path,$replace(%_path%,: , - ))
-$set(_path,$replace(%_path%,???,Fragezeichen))
-$set(_path,$replace(%_path%,?,))
-$set(_path,$replace(%_path%,",))
+$noop( Additional path replacements, e.g. to prevent replacement of illegal characters with an underscore )
+$set(_SearchReplaceSeparator,=>)
+$if($not(%_PathReplacements%),$setmulti(_PathReplacements,
+$noop( Default regex rules, format: "search=>replace;")
+: => - ;
+\\?=>;
+"=>;
+,;))
+
+$noop( Loop over all valid path replacement rules )
+$foreach(%_PathReplacements%,$if($eq(2,$lenmulti(%_loop_value%,%_SearchReplaceSeparator%)),
+	$set(_SearchPattern,$getmulti(%_loop_value%,0,%_SearchReplaceSeparator%))
+	$set(_ReplaceValue,$getmulti(%_loop_value%,1,%_SearchReplaceSeparator%))
+	$set(_Path,$rreplace(%_Path%,%_SearchPattern%,%_ReplaceValue%))
+))
 
 $noop( Output the constructed path, remove line breaks and indentation caused by script formatting )
-$rreplace(%_path%,[\\t\\n]+,)
+$rreplace(%_Path%,[\\t\\n]+,)
