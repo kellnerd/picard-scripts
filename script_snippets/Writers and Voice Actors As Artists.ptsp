@@ -1,0 +1,8 @@
+title: Writers and Voice Actors As Artists
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $noop( Use writers and voice actors as artists, might be useful for audiobooks and audio dramas )
+  $copymerge(_WritersAndVoiceActors,writer)
+  $copymerge(_WritersAndVoiceActors,performer:spoken vocals)
+id: 75a52be4-601a-494a-9adb-2d9d6d543ed0
