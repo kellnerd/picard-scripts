@@ -1,3 +1,6 @@
+$noop( Requires: "Release tag aggregation functions" & "Tagger script functions $is_lossless() and $is_lossy()" plugins )
+$noop( Optional: "Auto Pad Disc and Track Numbers", "Special Release Types" & "Filename components" scripts )
+
 $noop( File properties )
 $if($ne_all(%_extension%,mp3,flac),
 	$set(_FileFormat,$upper(%_extension%))
