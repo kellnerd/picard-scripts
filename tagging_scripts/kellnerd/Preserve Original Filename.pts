@@ -1,0 +1,4 @@
+$noop( Write original filename as tag for relevant medium formats if it does not already exist )
+$if($and($not(%originalfilename%),$eq_any(%media%,Digital Media,Data CD)),
+	$set(originalfilename,%_filename%.%_extension%)
+)
