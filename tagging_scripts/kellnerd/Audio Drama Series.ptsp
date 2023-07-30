@@ -11,10 +11,10 @@ script: |
   $noop( Expression to detect an episode number )
   $set(_EpisodeNumberRegex, \(\\d+\))
 
-  $noop( Use series tags or try to extract series title and episode number from the release title )
+  $noop( Use first set of series tags or try to extract series title and episode number from the release title )
   $noop( Try to extract episode title, fallback to release title )
-  $set(_SeriesTitle,$if2(%series%,$rsearch(%album%,\(.+?\)\(?:%_EpisodeNumberRegex%\)?:)))
-  $set(_SeriesEpisode,$if2(%seriesnumber%,$rsearch(%album%,%_EpisodeNumberRegex%:)))
+  $set(_SeriesTitle,$if2($getmulti(%series%,0),$rsearch(%album%,\(.+?\)\(?:%_EpisodeNumberRegex%\)?:)))
+  $set(_SeriesEpisode,$if2($getmulti(%seriesnumber%,0),$rsearch(%album%,%_EpisodeNumberRegex%:)))
   $set(_SeriesEpisodeTitle,$if2($rsearch(%album%,.+?: \(.+\)),%album%))
 
   $noop( Put episode number in release title into parentheses )
