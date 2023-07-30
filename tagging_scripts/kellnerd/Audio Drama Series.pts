@@ -1,0 +1,5 @@
+$noop( Use series tags for audio dramas )
+$if($inmulti($lower(%releasetype%),audio drama),
+	$copy(series,_releasegroup_series)
+	$copy(seriesnumber,_releasegroup_seriesnumber)
+)

@@ -1,0 +1,5 @@
+$noop( Use series tags for compilations )
+$if($inmulti($lower(%releasetype%),compilation),
+	$copy(series,_releasegroup_series)
+	$copy(seriesnumber,_releasegroup_seriesnumber)
+)
