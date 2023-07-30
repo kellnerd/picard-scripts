@@ -15,5 +15,8 @@ script: |
   $set(_SeriesEpisode,$if2(%seriesnumber%,$rsearch(%album%,%_EpisodeNumberRegex%:)))
   $set(_SeriesEpisodeTitle,$rsearch(%album%,.+?: \(.+\)))
 
+  $noop( Put episode number in release title into parentheses )
+  $set(album,$rreplace(%album%,%_EpisodeNumberRegex%:, \(\\1\)))
+
   )
 id: e8560b74-2b3f-467a-bfb4-2ff1dac5dffd
