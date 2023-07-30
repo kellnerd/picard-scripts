@@ -8,8 +8,8 @@ script: |
   $copy(series,_releasegroup_series)
   $copy(seriesnumber,_releasegroup_seriesnumber)
 
-  $noop( Expression to detect an episode number )
-  $set(_EpisodeNumberRegex, \(\\d+\))
+  $noop( Expression to detect an episode number with optional prefix and leading zeros )
+  $set(_EpisodeNumberRegex,\(?:\(?:\, |^\)\(?:Episode|Folge\)\)? 0*\(\\d+\))
 
   $noop( Use first set of series tags or try to extract series title and episode number from the release title )
   $noop( Try to extract episode title, fallback to release title )
@@ -17,7 +17,7 @@ script: |
   $set(_SeriesEpisode,$if2($getmulti(%seriesnumber%,0),$rsearch(%album%,%_EpisodeNumberRegex%:)))
   $set(_SeriesEpisodeTitle,$if2($rsearch(%album%,.+?: \(.+\)),%album%))
 
-  $noop( Put episode number in release title into parentheses )
+  $noop( Put episode number in release title into parentheses, stripping common prefixes )
   $set(album,$rreplace(%album%,%_EpisodeNumberRegex%:, \(\\1\)))
 
   )
