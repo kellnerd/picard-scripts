@@ -1,0 +1,19 @@
+title: Audio Drama Series
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $if($inmulti($lower(%releasetype%),audio drama),
+
+  $noop( Use series tags for audio dramas )
+  $copy(series,_releasegroup_series)
+  $copy(seriesnumber,_releasegroup_seriesnumber)
+
+  $noop( Expression to detect an episode number )
+  $set(_EpisodeNumberRegex, \(\\d+\))
+
+  $set(_SeriesTitle,$if2(%series%,$rsearch(%album%,\(.+?\)\(?:%_EpisodeNumberRegex%\)?:)))
+  $set(_SeriesEpisode,$if2(%seriesnumber%,$rsearch(%album%,%_EpisodeNumberRegex%:)))
+  $set(_SeriesEpisodeTitle,$rsearch(%album%,.+?: \(.+\)))
+
+  )
+id: e8560b74-2b3f-467a-bfb4-2ff1dac5dffd
