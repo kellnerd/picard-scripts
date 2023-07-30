@@ -1,0 +1,7 @@
+title: Preserve Original File Timestamp
+author: kellnerd
+script_language_version: '1.1'
+script: "$noop( Write original file timestamp as tag if it does not already exist\
+  \ )\n$if($not(%originalfiletime%),\n\t$set(originalfiletime,$if($lt(%_file_modified_timestamp%,%_file_created_timestamp%),%_file_modified_timestamp%,%_file_created_timestamp%))\n\
+  )\n"
+id: 0f97257e-8470-4385-8e64-53af543a016f
