@@ -1,0 +1,10 @@
+title: Multi-Value Artist Tags
+script_language_version: '1.1'
+script: |
+  $noop( Add missing multi-value album artists tag, Kodi looks for *ARTISTS first and falls back to *ARTIST )
+  $copy(albumartists,_albumartists)
+
+  $noop( Prefer multi-value sort names)
+  $copy(artistsort,_artists_sort)
+  $copy(albumartistsort,_albumartists_sort)
+id: a10484c1-dc5f-46eb-9dc6-ab9ed53f5aff
