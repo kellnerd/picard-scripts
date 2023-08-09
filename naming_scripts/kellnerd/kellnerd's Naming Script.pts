@@ -5,7 +5,7 @@ $noop( File properties )
 $if($ne_all(%_extension%,mp3,flac),
 	$set(_FileFormat,$upper(%_extension%))
 )
-$if($is_lossy(),
+$if($and(%_bitrate%,$is_lossy()),
 	$set(_LossyBitrate,$album_avg(_bitrate,0)kbps)
 )
 $if($gt(%_bits_per_sample%,16),
