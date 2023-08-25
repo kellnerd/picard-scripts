@@ -4,7 +4,7 @@ $noop( Frequently used constants )
 $set(_ReleaseYear,$year($if2(%releasedate%,%date%)))
 
 $noop( Compose version info string for the album )
-$if($gt(%_ReleaseYear%,%originalyear%),
+$if($gt(%_ReleaseYear%,$year(%originaldate%)),
 	$set(_Reissue,%_ReleaseYear%)
 )
 $if($ne_all(%media%,CD,Digital Media),
@@ -14,7 +14,7 @@ $setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
 $cleanmulti(_AlbumInfo)
 
 $noop( General snippets )
-$set(_Year,$if2(%originalyear%,%_ReleaseYear%). )
+$set(_Year,$if2($year(%originaldate%),%_ReleaseYear%). )
 $if(%_SeriesEpisode%,
 	$set(_Volume,\(%_SeriesEpisode%\) )
 )
