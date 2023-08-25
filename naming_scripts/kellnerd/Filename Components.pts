@@ -8,7 +8,7 @@ $if($gt(%_ReleaseYear%,$year(%originaldate%)),
 	$set(_Reissue,%_ReleaseYear%)
 )
 $if($ne_all(%media%,CD,Digital Media),
-	$set(_ReleaseFormat,%media%)
+	$set(_ReleaseFormat,$replace(%media%,Cassette,MC))
 )
 $setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
 $cleanmulti(_AlbumInfo)
