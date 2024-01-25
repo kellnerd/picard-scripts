@@ -1,0 +1,10 @@
+title: Preserve Original File Timestamps
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $noop( Write original file timestamps as tags if none of these is already present )
+  $if($not($or(%file_created_ts%,%file_modified_ts%)),
+  $set(file_created_ts,%_file_created_timestamp%)
+  $set(file_modified_ts,%_file_modified_timestamp%)
+  )
+id: 0f97257e-8470-4385-8e64-53af543a016f
