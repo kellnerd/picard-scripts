@@ -1,10 +1,5 @@
 $noop( Requires: "Capitalize Release Status and Types" )
 
-$noop( Soundtracks )
-$if($inmulti(%releasetype%,Soundtrack),
-	$set(_SpecialReleaseType,Soundtrack)
-)
-
 $noop( Audiobooks )
 $if($inmulti(%releasetype%,Audiobook),
 	$set(_SpecialReleaseType,Audiobook)
