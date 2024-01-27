@@ -18,7 +18,7 @@ $set(_Year,$if2($year(%originaldate%),%_ReleaseYear%). )
 $if(%_SeriesEpisode%,
 	$set(_Volume,\(%_SeriesEpisode%\) )
 )
-$if(%_AdditionalReleaseTypes%,
+$if($and(%_AdditionalReleaseTypes%,$not($startswith(%_AdditionalReleaseTypes%, ))),
 	$set(_AdditionalReleaseTypes, [$join(%_AdditionalReleaseTypes%,+)])
 )
 $if(%_AlbumInfo%,
