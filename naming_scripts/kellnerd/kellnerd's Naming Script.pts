@@ -1,5 +1,58 @@
 $noop( Requires: "Release tag aggregation functions" & "Tagger script functions $is_lossless() and $is_lossy()" plugins )
-$noop( Optional: "Auto Pad Disc and Track Numbers", "Special Release Types" & "Filename components" scripts )
+$noop( Optional: "Auto Pad Disc and Track Numbers" & "Special Release Types" scripts )
+
+$noop( Frequently used constants )
+$set(_ReleaseYear,$year($if2(%releasedate%,%date%)))
+
+$noop( Additional release types and release status, without "Album" and "Official" )
+$unset(_AdditionalReleaseTypes)
+$foreach(%releasetype%; %releasestatus%, $if($ne_all(%_loop_value%,Album,%_SpecialReleaseType%,Official),
+	$copymerge(_AdditionalReleaseTypes,_loop_value)
+))
+
+$noop( Compose version info string for the album )
+$if($gt(%_ReleaseYear%,$year(%originaldate%)),
+	$set(_Reissue,%_ReleaseYear%)
+)
+$if($ne_all(%media%,CD,Digital Media),
+	$set(_ReleaseFormat,$replace(%media%,Cassette,MC))
+)
+$setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
+$cleanmulti(_AlbumInfo)
+
+$noop( General snippets )
+$set(_Year,$if2($year(%originaldate%),%_ReleaseYear%). )
+$if(%_SeriesEpisode%,
+	$set(_Volume,\(%_SeriesEpisode%\) )
+)
+$if(%_AdditionalReleaseTypes%,
+	$set(_AdditionalReleaseTypes, [$join(%_AdditionalReleaseTypes%,+)])
+)
+$if(%_AlbumInfo%,
+	$set(_AlbumInfo, [$join(%_AlbumInfo%, )])
+)
+
+$noop( Standard path components )
+$set(_ArtistFolder,$join($replace(%albumartistsort%,/,-), & ))
+$set(_AlbumFolder,
+	%_Year%
+	$replace(%album%,/,-)
+	%_AdditionalReleaseTypes%
+	%_AlbumInfo%
+)
+$set(_TrackTitle,$replace(%title%,/,-))
+
+$noop( Special path components for releases that are part of a series )
+$if(%_SeriesTitle%,
+	$set(_SeriesFolder,$replace(%_SeriesTitle%,/,-))
+	$set(_EpisodeFolder,
+		%_Year%
+		%_Volume%
+		$replace(%_SeriesEpisodeTitle%,/,-)
+		%_AdditionalReleaseTypes%
+		%_AlbumInfo%
+	)
+)
 
 $noop( File properties )
 $if($ne_all(%_extension%,mp3,flac),
