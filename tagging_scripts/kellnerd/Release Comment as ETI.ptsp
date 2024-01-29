@@ -1,0 +1,6 @@
+title: Release Comment as ETI
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $if(%_releasecomment%,$set(album,%album% \(%_releasecomment%\)))
+id: fce265dc-d1fb-4c8a-a13f-050e18465216
