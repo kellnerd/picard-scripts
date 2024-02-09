@@ -1,0 +1,12 @@
+$noop( Prefer ASCII punctuation in the following cases )
+$set(_SearchReplaceSeparator,=)
+$setmulti(_TagReplacements,’='; ‐=-; –=-)
+
+$noop( Do the above replacements for the following tags )
+$setmulti(_ReplacementTags,title; album; work; artist; artists; artistsort; albumartist; albumartists; albumartistsort)
+
+$foreach(%_TagReplacements%,$if($eq(2,$lenmulti(%_loop_value%,%_SearchReplaceSeparator%)),
+$set(_SearchValue,$getmulti(%_loop_value%,0,%_SearchReplaceSeparator%))
+$set(_ReplaceValue,$getmulti(%_loop_value%,1,%_SearchReplaceSeparator%))
+$foreach(%_ReplacementTags%,$setmulti(%_loop_value%,$replace($get(%_loop_value%),%_SearchValue%,%_ReplaceValue%)))
+))
