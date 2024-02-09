@@ -1,0 +1,6 @@
+title: Use Release Group Date
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $set(date,$year(%originaldate%))
+id: 1274db3f-fde7-4997-9b2c-aafcf60e05ef
