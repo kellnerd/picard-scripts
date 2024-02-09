@@ -1,0 +1,6 @@
+title: Set Original Filename
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $set(originalfilename,%_filename%.%_extension%)
+id: 51d96e97-40d7-45c9-addf-71efbcca2943
