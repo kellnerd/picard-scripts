@@ -3,5 +3,7 @@ author: kellnerd
 script_language_version: '1.1'
 script: |
   $noop( Use square brackets instead of rounded brackets for ETI )
-  $set(title,$rreplace(%title%,\\\(\(?=[^\(\)]*\(?:edit|mix|version|take|live|instrumental|dialogue|interview|bonus\)\)\([^\(\)]+\)\\\),[\\1]))
+  $foreach(title; album,
+  $set(%_loop_value%,$rreplace($get(%_loop_value%),\\\(\(?=[^\(\)]*\(?:edit|mix|version|take|live|instrumental|dialogue|interview|bonus|reconstruction\)\)\([^\(\)]+\)\\\),[\\1]))
+  )
 id: d2e3c174-e7b3-496d-a2b1-42d0fe6a9261
