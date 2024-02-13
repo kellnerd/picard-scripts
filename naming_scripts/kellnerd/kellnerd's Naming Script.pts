@@ -8,7 +8,7 @@ $set(_Medium,$album_all(%media%))
 $noop( Additional release types and release status, without "Album" and "Official" )
 $unset(_AdditionalReleaseTypes)
 $foreach(%releasetype%; %releasestatus%, $if($ne_all(%_loop_value%,Album,%_SpecialReleaseType%,Official),
-	$copymerge(_AdditionalReleaseTypes,_loop_value)
+	$if($not($find(%album%,%_loop_value%)),$copymerge(_AdditionalReleaseTypes,_loop_value))
 ))
 
 $noop( Compose version info string for the album )
