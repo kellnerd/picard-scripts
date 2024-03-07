@@ -34,22 +34,21 @@ $if(%_AlbumInfo%,
 )
 
 $noop( Standard path components )
-$set(_ArtistFolder,$join($replace(%albumartistsort%,/,-), & ))
+$set(_ArtistFolder,$join(%albumartistsort%, & ))
 $set(_AlbumFolder,
 	%_Year%
-	$replace(%album%,/,-)
+	%album%
 	%_AdditionalReleaseTypes%
 	%_AlbumInfo%
 )
-$set(_TrackTitle,$replace(%title%,/,-))
 
 $noop( Special path components for releases that are part of a series )
 $if(%_SeriesTitle%,
-	$set(_SeriesFolder,$replace(%_SeriesTitle%,/,-))
+	$set(_SeriesFolder,%_SeriesTitle%)
 	$set(_EpisodeFolder,
 		%_Year%
 		%_Volume%
-		$replace(%_SeriesEpisodeTitle%,/,-)
+		%_SeriesEpisodeTitle%
 		%_AdditionalReleaseTypes%
 		%_AlbumInfo%
 	)
@@ -97,7 +96,7 @@ $set(_Path,
 		)
 	. )
 	$noop( Track/Recording title )
-	$if2(%_TrackTitle%,%title%)
+	%title%
 	$noop( Track artist credits if different from the release's artist credit )
 	$if($ne(%artist%,%albumartist%), -- 
 		$if2(%_TrackArtist%,%artist%)
@@ -109,7 +108,7 @@ $set(_SearchReplaceSeparator,=>)
 $if($not(%_PathReplacements%),$setmulti(_PathReplacements,
 $noop( Default regex rules, format: "search=>replace;")
 [:\\?] => - ;
-\\?\$=>;
+\\?+\$=>;
 "\(.+?\)"=>'\\1';
 ,;))
 
