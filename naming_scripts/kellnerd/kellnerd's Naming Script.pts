@@ -108,7 +108,7 @@ $set(_SearchReplaceSeparator,=>)
 $if($not(%_PathReplacements%),$setmulti(_PathReplacements,
 $noop( Default regex rules, format: "search=>replace;")
 [:\\?] => - ;
-\\?+\$=>;
+\\?+\(?=/|\\\)|\$\)=>;
 "\(.+?\)"=>'\\1';
 ,;))
 
