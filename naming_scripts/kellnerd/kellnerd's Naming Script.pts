@@ -34,7 +34,7 @@ $if(%_AlbumInfo%,
 )
 
 $noop( Standard path components )
-$set(_ArtistFolder,$join(%albumartistsort%, & ))
+$set(_ArtistFolder,$join($if2(%albumartistsort%,%artistsort%), & ))
 $set(_AlbumFolder,
 	%_Year%
 	%album%
@@ -84,8 +84,8 @@ $set(_Path,
 	$if(%albumartist%,
 		$if2(%_EpisodeFolder%,%_AlbumFolder%,%album%)%_FileInfo%
 	/)
-	$noop( Disc and track number, if available, except for standalone recordings )
-	$if($and(%tracknumber%,%albumartist%),
+	$noop( Disc and track number, if available / Year for standalone recordings )
+	$if(%tracknumber%,
 		$if($gt(%totaldiscs%,1),
 			$if2(%_PaddedDiscNum%,%discnumber%)
 		.)
@@ -94,11 +94,11 @@ $set(_Path,
 		,$noop( Track number is not alpha-numerical, prefer padded consecutive numbers )
 			$if2(%_PaddedTrackNum%,%tracknumber%)
 		)
-	. )
+	. ,%_Year%)
 	$noop( Track/Recording title )
 	%title%
 	$noop( Track artist credits if different from the release's artist credit )
-	$if($ne(%artist%,%albumartist%), -- 
+	$if($and(%albumartist%,$ne(%artist%,%albumartist%)), -- 
 		$if2(%_TrackArtist%,%artist%)
 	)
 )
