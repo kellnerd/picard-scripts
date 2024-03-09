@@ -3,5 +3,5 @@ author: kellnerd
 script_language_version: '1.1'
 script: |
   $noop( Convert soundtrack/score subtitles into ETI and move them to the end )
-  $set(album,$rreplace(%album%,: \(?=[^\,:]*\(?:Soundtrack|Score|Music From\)\)\([^\,:]+\)\(.*\),\\2 [\\1]))
+  $set(album,$rreplace(%album%,: \(?=[^\,:\(]*\(?:Soundtrack|Score|Music From\)\)\([^\,:]+\)\(.*\),\\2 [\\1]))
 id: a71ffdf9-c543-4675-a11f-0d5ae1fed0a9
