@@ -3,7 +3,7 @@ $noop( Optional: "Auto Pad Disc and Track Numbers" & "Special Release Types" scr
 
 $noop( Frequently used constants )
 $set(_ReleaseYear,$year($if2(%releasedate%,%date%)))
-$set(_Medium,$album_all(%media%))
+$set(_Medium,$album_all(media))
 
 $noop( Additional release types and release status, without "Album" and "Official" )
 $unset(_AdditionalReleaseTypes)
@@ -16,7 +16,7 @@ $if($gt(%_ReleaseYear%,$year(%originaldate%)),
 	$set(_Reissue,%_ReleaseYear%)
 )
 $if($ne_all(%_Medium%,CD,Digital Media),
-	$set(_ReleaseFormat,$replace(%_Medium%,Cassette,MC))
+	$set(_ReleaseFormat,$rreplace($replace(%_Medium%,Cassette,MC),\(\\d+" \)?Vinyl,Vinyl))
 )
 $setmulti(_AlbumInfo,%_Reissue%; %_ReleaseFormat%)
 $cleanmulti(_AlbumInfo)
