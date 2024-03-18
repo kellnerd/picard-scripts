@@ -1,0 +1,10 @@
+title: Custom Various Artists Name
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $noop( Overwrite all occurrences of "Various Artists", not only albumartist )
+  $if($eq(%musicbrainz_albumartistid%,89ad4ac3-39f7-470e-963a-56509c546377),
+  $foreach(albumartist; albumartistsort; _albumartists,
+  $set(%_loop_value%,[various])
+  ))
+id: 58cf874e-42d3-4f77-a674-de1519e9f23f
