@@ -111,6 +111,8 @@ $noop( Default regex rules, format: "search=>replace;")
 [:\\?] => - ;
 \\?+\(?=/|\\\)|\$\)=>;
 "\(.+?\)"=>'\\1';
+’=>';
+[‐–]=>-;
 ,;))
 
 $noop( Loop over all valid path replacement rules )
