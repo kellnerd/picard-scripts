@@ -1,6 +1,6 @@
 $noop( Prefer ASCII punctuation in the following cases )
 $set(_SearchReplaceSeparator,=)
-$setmulti(_TagReplacements,’='; ‐=-; –=-)
+$setmulti(_TagReplacements,’='; ‘='; ‐=-; –=-)
 
 $noop( Do the above replacements for the following tags )
 $noop( Ignore artists as they appear in just too many different tags, and the solution would not work for performer:* )
