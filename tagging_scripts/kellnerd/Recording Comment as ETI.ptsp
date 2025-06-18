@@ -1,0 +1,6 @@
+title: Recording Comment as ETI
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $if(%_recordingcomment%,$set(title,%title% [%_recordingcomment%]))
+id: 3c885760-61f4-4d19-bbe9-2b7c25b1fddf
