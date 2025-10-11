@@ -1,0 +1,8 @@
+title: Unset Release Identifiers
+author: kellnerd
+script_language_version: '1.1'
+script: |
+  $noop( Unset tags which identify a specific release version )
+  $setmulti(_IdTags,barcode; label; catalognumber; releasecountry; releasedate; releasestatus)
+  $foreach(%_IdTags%,$unset(%_loop_value%))
+id: 139e2c71-05a8-43f9-9100-998e8141decc
